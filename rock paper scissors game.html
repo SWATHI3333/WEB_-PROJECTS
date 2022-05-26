@@ -1,0 +1,214 @@
+<html><head>
+    <style>
+        body{
+            background-color: black;
+        }
+        #s{
+            color:aquamarine;
+            font-family:cursive;
+            text-align: center;
+            position:relative;
+            top:47px;
+            font-size: 44px;   
+        }
+        .a{
+            color:lightyellow;
+            position: relative;
+            left:500px;
+            top:62px;
+
+        }
+        .a p{
+            font-size: x-large;
+        }
+        .b{
+            color:lightyellow;
+            position: relative;
+            left:680px;
+            top:-37px;
+        }
+        .b p{
+            font-size: x-large;
+            
+        }
+        .move{
+            color:red;
+            position: relative;
+            top:-30px;
+            left:510px;
+            font-size:34px;
+        }
+        .movesleft{
+            color:lightyellow;
+            position: relative;
+            left:550px;
+            font-size:20px;
+            top:-12px;
+        }
+       
+        .options{
+            position: relative;
+            left:480px;
+            top:15px; 
+        }
+        button{
+            width:80px;
+            height:50px;
+            
+            color:black;
+            font-size: larger;
+            font-family:'Times New Roman', Times, serif;
+            font-weight: bold;
+            border-radius: 90px;
+        }
+     
+        
+        .result{
+            position: relative;
+            left:510px;
+            color:gold;
+            top:20px;
+            font-size:xx-large;
+            font-family: cursive;
+        }
+        
+
+        
+        
+    </style>
+</head>
+<body>
+    <h1 id="s">Rock Paper Scissor</h1>
+    <div class="a">
+        <h2>Player</h2>
+        <p class="plc" style="color:aquamarine;">0</p>
+    </div>
+    <div class="b">
+        <h2>Computer</h2>
+        <p class="cc" style="color:aquamarine;">0</p>
+    </div>
+    <div class="move">
+        choose your move
+        
+    </div>
+    <div class="movesleft">
+        moves left:10
+    </div>
+    
+    
+    
+    <div class="options">
+        <button class="rock" style="background-color:brown;">Rock</button>&nbsp;&nbsp;
+        <button class="paper" style="background-color:cornsilk;" >Paper</button>&nbsp;&nbsp;
+        <button class="scissor" style="background-color:cornflowerblue;">Scissor</button>&nbsp;&nbsp;
+         
+
+    </div>
+    <p class="result"></p>
+  
+      <script>
+        const game=()=>{
+            var gameover=0;
+            let playerscore=0;
+            let computerscore=0;
+            let moves=0;   
+            const playgame=()=>{
+            const rockbtn=document.querySelector('.rock');
+            const paperbtn=document.querySelector('.paper');
+            const scissorbtn=document.querySelector('.scissor');
+            const playeroptions=[rockbtn,paperbtn,scissorbtn];
+            const computeroptions=["Rock","Paper","Scissor"];
+            playeroptions.forEach(options=>{
+                options.addEventListener('click',function(){
+                    const movesleft=document.querySelector('.movesleft');
+                    moves=moves+1;
+                    movesleft.innerHTML='moves left: '+" " +" "+eval(10-moves);
+                    const choicenumber=Math.floor(Math.random()*3);
+                    const computerchoice=computeroptions[choicenumber];
+                    winner(this.innerHTML,computerchoice)
+                    if (moves==10){
+                        gameOver();
+                        gameover=1;
+                    }
+                })
+            })
+        }
+        
+        const winner=(player,computer)=>{
+            const result=document.querySelector('.result');
+            const playerscoreboard=document.querySelector('.plc');
+            const computerscoreboard=document.querySelector('.cc');
+            player=player.toLowerCase();
+            computer=computer.toLowerCase();
+            if (player==computer){
+                result.textContent="Tie";
+            }
+            else if(player=="rock"){
+                if (computer=="paper"){
+                    result.textContent="Computer won";
+                    computerscore=computerscore+1;
+                    computerscoreboard.innerHTML=computerscore;
+                    
+
+                }
+                else{
+                    result.textContent="You won";
+                    playerscore=playerscore+1;
+                    playerscoreboard.innerHTML=playerscore;
+                    
+                }
+            }
+            else if(player=="paper"){
+                if (computer=="rock"){
+                    result.textContent="You won";
+                    playerscore=playerscore+1;
+                    playerscoreboard.innerHTML=playerscore;
+                   
+                }
+                else{
+                    result.textContent="Computer won";
+                    computerscore=computerscore+1;
+                    computerscoreboard.innerHTML=computerscore;
+                    
+                }
+            }
+            else if(player=="scissor"){
+                if (computer=="rock"){
+                    result.textContent="Computer won";
+                    computerscore=computerscore+1;
+                    computerscoreboard.innerHTML=computerscore;
+                    
+                }
+                else{
+                    result.textContent="You won";
+                    playerscore=playerscore+1;
+                    playerscoreboard.innerHTML=playerscore;
+                    
+                }
+            }
+
+        }
+        const gameOver=()=>{
+
+            const choosemove=document.querySelector('.move');
+            const result=document.querySelector('.result');
+           
+            
+            choosemove.innerText="Game over !!!";
+            
+            if (computerscore>playerscore){
+                result.textContent="You lost the game";
+            }
+            else if(playerscore>computerscore){
+                result.textContent="You won the game";
+            }
+            else{
+                result.textContent="Tie";
+            }
+        }
+        playgame();
+        }
+        game();
+    </script>
+</body>
+</html>
